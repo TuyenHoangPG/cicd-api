@@ -6,8 +6,8 @@ jobs:
       environment:
         TARGET_PROJECT: test-circle-ci-99504
       steps:
-          - checkout
-          # Download and cache dependencies
+          - checkout:
+            path: ~/project/cicd-api/functions
           - run:
                 name: Open Workspace
                 command: cd functions/
