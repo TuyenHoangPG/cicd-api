@@ -1,21 +1,49 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
-orbs:
-  node: circleci/node@4.7
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+jobs:
+    build_and_deploy:
+      docker:
+          - image: circleci/node:14
+      working_directory: ~/repo
+      environment:
+        TARGET_PROJECT: test-circle-ci-99504
+      steps:
+          - checkout
+          # Download and cache dependencies
+          - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "package.json" }}
+                    - v1-dependencies-
+          - run:
+                name: Install Dependencies
+                command: npm install
+          - save_cache:
+                key: v1-npm-deps-{{ checksum "package-lock.json" }}
+                paths:
+                    - ./node_modules
+          - run:
+                name: Build
+                command: npm run build
+          - run:
+                name: Choose Project
+                command: ./node_modules/.bin/firebase use $TARGET_PROJECT
+          - run:
+                name: Firebase Deploy
+                command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+    trigger_automation_test:
+      steps:
+          - run:
+              name: Kick off auotmation test frontend
+              command: |
+                curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline' \
+                --header 'Content-Type: application/json' \
+                -u "fc30684073df92f9f57e0d2838fbac49b29b4175"
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  my-pipeline:
     jobs:
-      - node/test:
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
+      - build_and_deploy:
+          filters:
+            branches:
+              only:
+                - build
+
+
