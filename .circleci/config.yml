@@ -10,7 +10,7 @@ jobs:
           - run:
                 name: Open Workspace
                 working_directory: ~/circleci/project/cicd-api/functions
-                command: cd circleci && ls -la
+                command: ls -la
           - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
