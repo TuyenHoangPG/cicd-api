@@ -35,7 +35,7 @@ jobs:
           - run:
               name: Kick off auotmation test frontend
               command: |
-                curl --location --request POST 'https://circleci.com/api/v2/project/github/gh/TuyenHoangPG/cicd-frontend/pipeline' \
+                curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline' \
                 --header 'Content-Type: application/json' \
                 -u "fc30684073df92f9f57e0d2838fbac49b29b4175"
 workflows:
