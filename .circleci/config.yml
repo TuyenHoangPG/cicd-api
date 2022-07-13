@@ -3,7 +3,6 @@ jobs:
     build_and_deploy:
       docker:
           - image: circleci/node:14
-      working_directory: ~/cicd-api/functions
       environment:
         TARGET_PROJECT: test-circle-ci-99504
       steps:
@@ -19,13 +18,13 @@ jobs:
           - save_cache:
                 key: v1-npm-deps-{{ checksum "package-lock.json" }}
                 paths:
-                    - ./node_modules
+                    - ./functions/node_modules
           - run:
                 name: Choose Project
-                command: ./node_modules/.bin/firebase use $TARGET_PROJECT
+                command: ./functions/node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
                 name: Firebase Deploy
-                command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+                command: ./functions/node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
 
     trigger_automation_test:
       docker:
