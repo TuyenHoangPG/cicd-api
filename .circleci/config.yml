@@ -20,10 +20,10 @@ jobs:
           #           - ./node_modules
           - run:
                 name: Choose Project
-                command: ls -la
+                command: cd functions && ./node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
                 name: Firebase Deploy
-                command: cd functions ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+                command: cd functions && ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
 
     trigger_automation_test:
       docker:
