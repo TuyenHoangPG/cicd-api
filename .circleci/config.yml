@@ -24,7 +24,7 @@ jobs:
                     - ./node_modules
           - run:
                 name: Choose Project
-                command: ./node_modules/.bin/firebase use $TARGET_PROJECT
+                command: cd functions && ./node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
