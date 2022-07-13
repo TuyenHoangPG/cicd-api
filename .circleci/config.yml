@@ -13,17 +13,20 @@ jobs:
           #           - v1-dependencies-
           - run:
                 name: Install Dependencies
-                command: cd functions && npm install
+                # command: cd functions && npm install
+                command: ls -la
           # - save_cache:
           #       key: v1-npm-deps-{{ checksum "package-lock.json" }}
           #       paths:
           #           - ./node_modules
           - run:
                 name: Choose Project
-                command: cd functions && ./node_modules/.bin/firebase use $TARGET_PROJECT
+                # command: cd functions && ./node_modules/.bin/firebase use $TARGET_PROJECT
+                command: ls -la
           - run:
                 name: Firebase Deploy
-                command: cd functions && ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+                # command: cd functions && ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+                command: ls -la
 
     trigger_automation_test:
       docker:
