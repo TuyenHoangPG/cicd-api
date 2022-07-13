@@ -3,7 +3,7 @@ jobs:
     build_and_deploy:
       docker:
           - image: circleci/node:14
-      working_directory: ~/api/functions
+      working_directory: ~/functions
       environment:
         TARGET_PROJECT: test-circle-ci-99504
       steps:
