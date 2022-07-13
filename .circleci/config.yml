@@ -7,9 +7,10 @@ jobs:
         TARGET_PROJECT: test-circle-ci-99504
       steps:
           - checkout
-          - run:
-                name: Open Workspace
-                working_directory: ~/project/cicd-api/functions
+          - persist_to_workspace:
+              root: .     
+              paths:      
+              - functions
           - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
