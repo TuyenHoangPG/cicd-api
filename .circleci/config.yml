@@ -21,9 +21,6 @@ jobs:
                 paths:
                     - ./node_modules
           - run:
-                name: Build
-                command: npm run build
-          - run:
                 name: Choose Project
                 command: ./node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
