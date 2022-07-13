@@ -34,7 +34,7 @@ jobs:
               command: |
                 curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline' \
                 --header 'Content-Type: application/json' \
-                -u "fc30684073df92f9f57e0d2838fbac49b29b4175"
+                -u "b7be94532efd207b4ddf918c3061b313d7a9e522"
 workflows:
   my-pipeline:
     jobs:
