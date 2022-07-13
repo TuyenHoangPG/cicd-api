@@ -17,7 +17,6 @@ jobs:
                     - v1-dependencies-
           - run:
                 name: Install Dependencies
-                working_directory: functions
                 command: npm install
           - save_cache:
                 key: v1-npm-deps-{{ checksum "package-lock.json" }}
@@ -25,11 +24,9 @@ jobs:
                     - ./node_modules
           - run:
                 name: Choose Project
-                working_directory: functions
                 command: ./node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
                 name: Firebase Deploy
-                working_directory: functions
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
 
     trigger_automation_test:
