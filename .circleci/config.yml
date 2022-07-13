@@ -8,6 +8,9 @@ jobs:
       steps:
           - checkout
           # Download and cache dependencies
+          - run:
+                name: Open Workspace
+                command: cd functions/
           - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
@@ -18,13 +21,13 @@ jobs:
           - save_cache:
                 key: v1-npm-deps-{{ checksum "package-lock.json" }}
                 paths:
-                    - ./functions/node_modules
+                    - ./node_modules
           - run:
                 name: Choose Project
-                command: ./functions/node_modules/.bin/firebase use $TARGET_PROJECT
+                command: ./node_modules/.bin/firebase use $TARGET_PROJECT
           - run:
                 name: Firebase Deploy
-                command: ./functions/node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+                command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
 
     trigger_automation_test:
       docker:
