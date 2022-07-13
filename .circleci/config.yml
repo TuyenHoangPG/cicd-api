@@ -29,7 +29,10 @@ jobs:
           - run:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only functions
+
     trigger_automation_test:
+      docker:
+          - image: circleci/node:14
       steps:
           - run:
               name: Kick off auotmation test frontend
@@ -41,6 +44,13 @@ workflows:
   my-pipeline:
     jobs:
       - build_and_deploy:
+          filters:
+            branches:
+              only:
+                - build
+      - trigger_automation_test:
+          requires:
+            - build_and_deploy
           filters:
             branches:
               only:
