@@ -12,7 +12,6 @@ jobs:
                 working_directory: functions
                 command: ls -la
           - restore_cache:
-                working_directory: functions
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
                     - v1-dependencies-
@@ -22,7 +21,6 @@ jobs:
                 command: npm install
           - save_cache:
                 key: v1-npm-deps-{{ checksum "package-lock.json" }}
-                working_directory: functions
                 paths:
                     - ./node_modules
           - run:
