@@ -10,7 +10,6 @@ jobs:
           - run:
                 name: Open Workspace
                 working_directory: ~/project/cicd-api/functions
-                command: cd functions/
           - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
