@@ -37,7 +37,8 @@ jobs:
               command: |
                 curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline?branch=build' \
                 --header 'Content-Type: application/json' \
-                -u "1ea9cc1a016c3f6d452b22699929fd107dccd6a7"
+                -u "1ea9cc1a016c3f6d452b22699929fd107dccd6a7" \
+                --data-raw '{"branch":"build"}'
 workflows:
   my-pipeline:
     jobs:
