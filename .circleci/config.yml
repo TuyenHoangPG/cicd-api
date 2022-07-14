@@ -9,15 +9,15 @@ jobs:
           - checkout
           - restore_cache:
                 keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
+                    - v1-dependencies-{{ checksum "functions/package.json" }}
                     - v1-dependencies-
           - run:
                 name: Install Dependencies
                 command: cd functions && npm install
           - save_cache:
-                key: v1-npm-deps-{{ checksum "package-lock.json" }}
+                key: v1-npm-deps-{{ checksum "functions/package-lock.json" }}
                 paths:
-                    - ./node_modules
+                    - ./functions/node_modules
           - run:
                 name: Choose Project
                 command: cd functions && ./node_modules/.bin/firebase use $TARGET_PROJECT
